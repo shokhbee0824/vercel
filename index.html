@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>EcoCash - Future of Recycling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              eco: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                400: '#34d399',
+                500: '#10b981',
+                600: '#059669',
+                glow: '#00ff9d',
+              },
+              dark: {
+                800: '#1e293b',
+                900: '#0f172a',
+                950: '#020617',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+              'page-enter': 'pageEnter 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+              'spin-once': 'spinOnce 1s cubic-bezier(0.4, 0, 0.2, 1)',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              glow: {
+                'from': { boxShadow: '0 0 10px #10b981, 0 0 20px #10b981' },
+                'to': { boxShadow: '0 0 20px #34d399, 0 0 30px #34d399' },
+              },
+              pageEnter: {
+                '0%': { 
+                  opacity: '0', 
+                  transform: 'translateY(15px) scale(0.98)', 
+                  filter: 'blur(5px)'
+                },
+                '100%': { 
+                  opacity: '1', 
+                  transform: 'translateY(0) scale(1)', 
+                  filter: 'blur(0)'
+                }
+              },
+              spinOnce: {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* CSS VARIABLES & RESET */
+      :root {
+        color-scheme: light dark;
+      }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc; /* LIGHT MODE DEFAULT: Slate-50 */
+        color: #0f172a;           /* LIGHT MODE TEXT: Slate-900 */
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* DARK MODE OVERRIDE */
+      html.dark body {
+        background-color: #020617; /* DARK MODE: Slate-950 */
+        color: #f8fafc;           /* DARK MODE TEXT: Slate-50 */
+      }
+
+      /* AURORA BACKGROUND - LIGHT MODE */
+      .aurora-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+        background: 
+          radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.05), transparent 40%), 
+          radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 40%);
+        filter: blur(60px);
+        opacity: 0.8;
+        transition: opacity 0.5s ease;
+      }
+
+      /* AURORA BACKGROUND - DARK MODE */
+      html.dark body .aurora-bg {
+        background: 
+          radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.15), transparent 25%), 
+          radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.15), transparent 25%);
+        filter: blur(40px);
+        opacity: 1;
+      }
+      
+      /* Content Wrapper */
+      #root {
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Glassmorphism Utilities */
+      .glass {
+        @apply bg-white/80 dark:bg-slate-950/70 backdrop-blur-xl border-b border-slate-200 dark:border-white/10;
+      }
+      
+      .glass-card {
+        @apply bg-white/90 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl dark:shadow-eco-500/5;
+      }
+
+      .text-gradient {
+        background: linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #10b981 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientMove 5s linear infinite;
+      }
+      
+      @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+
+      /* Hover Effects */
+      .hover-trigger {
+        transition: all 0.3s ease;
+      }
+      .hover-trigger:hover {
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        transform: translateY(-2px);
+      }
+      
+      /* Smooth Page Transition */
+      .animate-page-enter {
+        animation: pageEnter 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        transform-origin: center top;
+        will-change: transform, opacity, filter;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      html.dark ::-webkit-scrollbar-thumb {
+        background: #334155;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1"
+  }
+}
+</script>
+<script>
+  // Prevent Flash of Unstyled Content (White Flash)
+  try {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  } catch (_) {}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div class="aurora-bg"></div>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

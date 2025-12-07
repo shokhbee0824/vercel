@@ -1,0 +1,8 @@
+{
+  "name": "EcoCash",
+  "description": "The future of green economy. Convert waste to crypto-assets.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
